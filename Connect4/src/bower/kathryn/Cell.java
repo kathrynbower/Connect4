@@ -7,12 +7,8 @@ public class Cell {
 		state = CellState.EMPTY;
 	}
 	
-	public void setP1() {
-		state = CellState.P1;
-	}
-	
-	public void setP2() {
-		state = CellState.P2;
+	public void setState(CellState state) {
+		this.state = state;
 	}
 	
 	public CellState getState() {
