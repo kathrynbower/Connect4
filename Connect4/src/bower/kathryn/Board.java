@@ -4,7 +4,8 @@ public class Board {
 	private Cell[][] board;
 	private int numRows;
 	private int numCols;
-
+	
+	//Constructor
 	public Board(int rows, int cols) {
 		numRows = rows;
 		numCols = cols;
@@ -52,6 +53,34 @@ public class Board {
 
 	public void updateCell(CellState state, int row, int column) {
 		board[row][column].setState(state);
+	}
+
+	public boolean isWinner(int row, int column, CellState state) {
+		// isVertical
+		// isHorizontal
+		// isDiagonal
+	}
+
+	public boolean isVerticalWinner(int row, int column, CellState state) {
+		int length = 1;
+		boolean end = false;
+
+		while (!end) {
+			if (row > 0) {
+				if (board[row - 1][column].getState() == state) {
+					length++;
+					row--;
+				} else {
+					end = true;
+				}
+			}
+		}
+
+		if (length == 4) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
