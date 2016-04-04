@@ -13,18 +13,21 @@ public class GameDriver {
 		System.out.println("Where would you like to place your marker?");
 		column = in.nextInt();
 		column--;
-
+		
+		boolean done = false;
 		CellState currentPlayer = CellState.P1;
-		while (true) {
+		while (!done) {
 			if (!board.isColumnFull(column)) {
 				board.updateCell(currentPlayer, board.getRowLocation(column), column);
-			}
+			} // else condition
 			board.display();
 			System.out.println("Where would you like to place your marker?");
 			column = in.nextInt();
 			column--;
+			
+			boolean win = board.isWinner(board.getRowLocation(column), column, currentPlayer);
+			System.out.println(win);
 			currentPlayer = changePlayer(currentPlayer);
-			// board.isWinner()
 
 		}
 	}

@@ -4,8 +4,8 @@ public class Board {
 	private Cell[][] board;
 	private int numRows;
 	private int numCols;
-	
-	//Constructor
+
+	// Constructor
 	public Board(int rows, int cols) {
 		numRows = rows;
 		numCols = cols;
@@ -56,9 +56,15 @@ public class Board {
 	}
 
 	public boolean isWinner(int row, int column, CellState state) {
-		// isVertical
-		// isHorizontal
-		// isDiagonal
+		if (isVerticalWinner(row, column, state)) {
+			return true;
+		} /*else if (isHorizontalWinner(row, column, state)) {
+			return true;
+		} else if (isDiagonalWinner(row, column, state)) {
+			return true;
+		}*/ else {
+			return false;
+		}
 	}
 
 	public boolean isVerticalWinner(int row, int column, CellState state) {
@@ -82,5 +88,20 @@ public class Board {
 			return false;
 		}
 	}
+
+	/*
+	 * public boolean isHorizontalWinner(int row, int column, CellState state) {
+	 * int length = 1; boolean end = false; int i = 1; int j = 1;
+	 * 
+	 * while (!end) { if ((column > 0) && (column <= 7)) { if
+	 * ((board[row][column - i].getState() == state) || (board[row][column +
+	 * j].getState() == state)) { length++; j++; i--; } else { end = true; } } }
+	 * if (length == 4) { return true; } else { return false; } }
+	 * 
+	 * public boolean isDiagonalWinner (int row, int column, CellState state) {
+	 * int length = 1; boolean end = false;
+	 * 
+	 * }
+	 */
 
 }
