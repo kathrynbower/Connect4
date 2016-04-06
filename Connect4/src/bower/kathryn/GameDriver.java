@@ -20,7 +20,7 @@ public class GameDriver {
 
 			if (!board.isColumnFull(column)) {
 				board.updateCell(currentPlayer, board.getRowLocation(column), column);
-			} else {
+			} else {  //not working
 				System.out.println("Column full");
 			}
 
