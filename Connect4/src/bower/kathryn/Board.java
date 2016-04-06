@@ -5,7 +5,6 @@ public class Board {
 	private int numRows;
 	private int numCols;
 
-	// Constructor
 	public Board(int rows, int cols) {
 		numRows = rows;
 		numCols = cols;
@@ -60,8 +59,6 @@ public class Board {
 			return true;
 		} /*else if (isHorizontalWinner(row, column, state)) {
 			return true;
-		} else if (isDiagonalWinner(row, column, state)) {
-			return true;
 		}*/ else {
 			return false;
 		}
@@ -72,13 +69,15 @@ public class Board {
 		boolean end = false;
 
 		while (!end) {
-			if (row > 0) {
-				if (board[row - 1][column].getState() == state) {
+			if (row > 0 && row <= 5) {
+				if (board[row + 1][column].getState() == state) {
 					length++;
-					row--;
+					row++;
 				} else {
 					end = true;
 				}
+			} else {
+				end = true;
 			}
 		}
 
@@ -89,19 +88,29 @@ public class Board {
 		}
 	}
 
-	/*
-	 * public boolean isHorizontalWinner(int row, int column, CellState state) {
-	 * int length = 1; boolean end = false; int i = 1; int j = 1;
-	 * 
-	 * while (!end) { if ((column > 0) && (column <= 7)) { if
-	 * ((board[row][column - i].getState() == state) || (board[row][column +
-	 * j].getState() == state)) { length++; j++; i--; } else { end = true; } } }
-	 * if (length == 4) { return true; } else { return false; } }
-	 * 
-	 * public boolean isDiagonalWinner (int row, int column, CellState state) {
-	 * int length = 1; boolean end = false;
-	 * 
-	 * }
-	 */
+	/*public boolean isHorizontalWinner(int row, int column, CellState state) {
+		int length = 1;
+		boolean end = false;
+		int i = 1;
+		int j = 1;
+
+		while (!end) {
+			if ((column > 0) && (column <= 7)) {
+				if ((board[row][column - i].getState() == state) || (board[row][column + j].getState() == state)) {
+					length++;
+					j++;
+					i--;
+				} else {
+					end = true;
+				}
+			}
+		}
+		System.out.println(length);
+		if (length == 4) {
+			return true;
+		} else {
+			return false;
+		}
+	}*/
 
 }
