@@ -57,9 +57,9 @@ public class Board {
 	public boolean isWinner(int row, int column, CellState state) {
 		if (isVerticalWinner(row, column, state)) {
 			return true;
-		} /*else if (isHorizontalWinner(row, column, state)) {
+		} else if (isHorizontalWinner(row, column, state)) {
 			return true;
-		}*/ else {
+		} else {
 			return false;
 		}
 	}
@@ -88,29 +88,34 @@ public class Board {
 		}
 	}
 
-	/*public boolean isHorizontalWinner(int row, int column, CellState state) {
+	public boolean isHorizontalWinner(int row, int column, CellState state) {
 		int length = 1;
 		boolean end = false;
 		int i = 1;
 		int j = 1;
 
 		while (!end) {
-			if ((column > 0) && (column <= 7)) {
-				if ((board[row][column - i].getState() == state) || (board[row][column + j].getState() == state)) {
+			if ((j >= 0) && (i <= 5)) {
+				if ((column == 0 || column < 3) && (board[row][column + i].getState() == state)) {
 					length++;
-					j++;
-					i--;
+					i++;
+				} else if ((column >= 3 || column <= 5) && (board[row][column - j].getState() == state)) {
+					length++;
+					j--;
 				} else {
 					end = true;
 				}
 			}
 		}
-		System.out.println(length);
 		if (length == 4) {
 			return true;
 		} else {
 			return false;
 		}
-	}*/
+	}
+	
+	public boolean isDiagonalWinner(int row, int column, CellState state) {
+		return false;
+	}
 
 }
