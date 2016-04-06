@@ -7,7 +7,7 @@ public class Board {
 
 	public Board(int rows, int cols) {
 		numRows = rows;
-		numCols = cols;
+		setNumCols(cols);
 
 		board = new Cell[rows][cols];
 		for (int i = 0; i < 7; i++) {
@@ -96,12 +96,14 @@ public class Board {
 
 		while (!end) {
 			if ((j >= 0) && (i <= 5)) {
-				if ((column == 0 || column < 3) && (board[row][column + i].getState() == state)) {
+				// looking to the right
+				if ((column+i)<6 && (board[row][column + i].getState() == state)) {
 					length++;
 					i++;
-				} else if ((column >= 3 || column <= 5) && (board[row][column - j].getState() == state)) {
+					// looking to the left
+				} else if ((column-j)>0 && (board[row][column - j].getState() == state)) {
 					length++;
-					j--;
+					j++;
 				} else {
 					end = true;
 				}
@@ -116,6 +118,14 @@ public class Board {
 	
 	public boolean isDiagonalWinner(int row, int column, CellState state) {
 		return false;
+	}
+
+	public int getNumCols() {
+		return numCols;
+	}
+
+	public void setNumCols(int numCols) {
+		this.numCols = numCols;
 	}
 
 }
