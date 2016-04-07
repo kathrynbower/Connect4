@@ -1,10 +1,21 @@
 package bower.kathryn;
 
+/**
+ * Class updates and displays board + checks for a win or tie
+ * @author Kathryn
+ *
+ */
 public class Board {
 	private Cell[][] board;
 	private int numRows;
 	private int numCols;
-
+	
+	/**
+	 * 
+	 * @param rows - numRows initialized
+	 * @param cols - numCols initialized
+	 * initializes the board
+	 */
 	public Board(int rows, int cols) {
 		numRows = rows;
 		setNumCols(cols);
@@ -21,11 +32,14 @@ public class Board {
 	public int getNumCols() {
 		return numCols;
 	}
-
+	
 	public void setNumCols(int numCols) {
 		this.numCols = numCols;
 	}
 
+	/**
+	 * displays the game board
+	 */
 	public void display() {
 		for (int i = 0; i < 7; i++) {
 			for (int j = 0; j < 7; j++) {
@@ -41,10 +55,21 @@ public class Board {
 		}
 	}
 
+	/**
+	 * 
+	 * @param column - entered by user input
+	 * @returns whether the column is full
+	 */
 	public boolean isColumnFull(int column) {
 		return board[0][column].getState() != CellState.EMPTY;
 	}
 
+	/**
+	 * 
+	 * @param column
+	 * Checks for the lowest available position to "drop" marker in
+	 * @returns the row position for the marker
+	 */
 	public int getRowLocation(int column) {
 		boolean found = false;
 		int rowPos = numRows - 1;
@@ -58,10 +83,23 @@ public class Board {
 		return rowPos;
 	}
 
+	/**
+	 * Updates the game board with the next marker
+	 * @param state - player 1 or 2
+	 * @param row
+	 * @param column
+	 */
 	public void updateCell(CellState state, int row, int column) {
 		board[row][column].setState(state);
 	}
-
+	
+	/**
+	 * Checks for a win in 3 ways - diagonal not working
+	 * @param row
+	 * @param column
+	 * @param state
+	 * @returns true if one of the win conditions is true
+	 */
 	public boolean isWinner(int row, int column, CellState state) {
 		if (isVerticalWinner(row, column, state)) {
 			return true;
@@ -75,6 +113,14 @@ public class Board {
 		}
 	}
 
+	
+	/**
+	 * Checks for wins vertically - checks down
+	 * @param row
+	 * @param column
+	 * @param state
+	 * @returns true if there are 4 variables of the same state in a column
+	 */
 	public boolean isVerticalWinner(int row, int column, CellState state) {
 		int length = 1;
 		boolean end = false;
@@ -99,6 +145,13 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Checks for wins horizontally - checks left and right
+	 * @param row
+	 * @param column
+	 * @param state
+	 * @returns true if there are 4 variables of the same state in a row
+	 */
 	public boolean isHorizontalWinner(int row, int column, CellState state) {
 		int length = 1;
 		boolean end = false;
@@ -128,6 +181,13 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Checks for wins diagonally - checks down and left/right
+	 * @param row
+	 * @param column
+	 * @param state
+	 * @returns true if there are 4 in a row diagonally
+	 */
 	public boolean isDiagonalWinner(int row, int column, CellState state) {
 		int length = 1;
 		boolean end = false;
@@ -136,10 +196,12 @@ public class Board {
 
 		while (!end) {
 			if ((j >= 0) && (i <= 5) && (row > 0 && row <= 5)) {
+				//left
 				if ((column + i) < 6 && (board[row + 1][column + i].getState() == state)) {
 					length++;
 					i++;
 					row++;
+					//right
 				} else if ((column - j) >= 0 && (board[row + 1][column - j].getState() == state)) {
 					length++;
 					j++;
@@ -158,7 +220,10 @@ public class Board {
 		}
 
 	}
-
+	/**
+	 * Checks for a tie - top row is full
+	 * @returns true if the top row equals 7/is full
+	 */
 	public boolean isTied() {
 		int count = 0;
 		for (int i = 0; i < 7; i++) {
