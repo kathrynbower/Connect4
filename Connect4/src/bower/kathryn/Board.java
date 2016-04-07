@@ -67,8 +67,9 @@ public class Board {
 			return true;
 		} else if (isHorizontalWinner(row, column, state)) {
 			return true;
-		} else if (isDiagonalWinner(row, column, state)) {
-			return true;
+			/*
+			 * } else if (isDiagonalWinner(row, column, state)) { return true;
+			 */
 		} else {
 			return false;
 		}
@@ -119,7 +120,7 @@ public class Board {
 				}
 			}
 		}
-		
+
 		if (length == 4) {
 			return true;
 		} else {
@@ -134,15 +135,15 @@ public class Board {
 		int j = 1;
 
 		while (!end) {
-			if ((j >= 0) && (i <= 5)) {
-				if ((column + i) < 6 && (board[row - 1][column + i].getState() == state)) {
+			if ((j >= 0) && (i <= 5) && (row > 0 && row <= 5)) {
+				if ((column + i) < 6 && (board[row + 1][column + i].getState() == state)) {
 					length++;
 					i++;
-					row--;
-				} else if ((column - j) >= 0 && (board[row - 1][column - j].getState() == state)) {
+					row++;
+				} else if ((column - j) >= 0 && (board[row + 1][column - j].getState() == state)) {
 					length++;
 					j++;
-					row--;
+					row++;
 				} else {
 					end = true;
 				}
@@ -157,4 +158,20 @@ public class Board {
 		}
 
 	}
+
+	public boolean isTied() {
+		int count = 0;
+		for (int i = 0; i < 7; i++) {
+			if (board[0][i].getState() != CellState.EMPTY) {
+				count++;
+			}
+		}
+		if (count == 7) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
 }

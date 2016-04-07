@@ -20,7 +20,7 @@ public class GameDriver {
 
 			if (!board.isColumnFull(column)) {
 				board.updateCell(currentPlayer, board.getRowLocation(column), column);
-			} else {  //not working
+			} else { // not working
 				System.out.println("Column full");
 			}
 
@@ -39,6 +39,9 @@ public class GameDriver {
 				} else {
 					System.out.println("Player 2 wins!");
 				}
+			} else if (board.isTied()) {
+				done = true;
+				System.out.println("Tie.");
 			}
 
 		}
