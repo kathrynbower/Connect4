@@ -14,11 +14,11 @@ public class GameDriver {
 		board.display();
 		int column;
 
-		Scanner in = new Scanner(System.in);
+		Scanner in = new Scanner (System.in);
 		System.out.println("Where would you like to place your marker?");
 		column = in.nextInt();
 		column--;
-
+		
 		boolean done = false;
 		CellState currentPlayer = CellState.P1;
 		while (!done) {
@@ -37,12 +37,14 @@ public class GameDriver {
 					column--;
 				}
 			}
+			
 			board.updateCell(currentPlayer, board.getRowLocation(column), column);
 
 			board.display();
 			System.out.println("Where would you like to place your marker?");
 			column = in.nextInt();
 			column--;
+			
 			currentPlayer = changePlayer(currentPlayer);
 
 			if (board.isWinner(board.getRowLocation(column), column, currentPlayer)) {
@@ -77,6 +79,7 @@ public class GameDriver {
 			player = CellState.P1;
 		}
 		return player;
-	}
+	} 
+	
 
 }
