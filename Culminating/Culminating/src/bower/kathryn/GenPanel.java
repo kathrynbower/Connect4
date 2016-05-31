@@ -16,9 +16,14 @@ public class GenPanel extends JPanel {
 	final int FONT_SIZE = 24;
 	JButton btnPick;
 	JButton btnAddList;
+	JButton btnDone;
 	
-	
-	int row = 6;
+	JButton btnAddShirt;
+	JButton btnAddPants;
+	JButton btnAddSocks;
+	JButton btnAddShoes;
+
+	int row = 10;
 	int column = 1;
 
 	Color purple = new Color(200, 128, 224);
@@ -27,16 +32,11 @@ public class GenPanel extends JPanel {
 	ArrayList<String> Pants = new ArrayList<>();
 	ArrayList<String> Socks = new ArrayList<>();
 	ArrayList<String> Shoes = new ArrayList<>();
-	ArrayList<String> Dresses = new ArrayList<>();
-	ArrayList<String> Stockings = new ArrayList<>();
-	ArrayList<String> Cardigans = new ArrayList<>();
+	//ArrayList<String> Dresses = new ArrayList<>();
+	//ArrayList<String> Stockings = new ArrayList<>();
+	//ArrayList<String> Sweaters = new ArrayList<>();
 
-	String item;
 	JTextField word1 = new JTextField(FONT_SIZE);
-	JTextField word2 = new JTextField(FONT_SIZE);
-	JTextField word3 = new JTextField(FONT_SIZE);
-	JTextField word4 = new JTextField(FONT_SIZE);
-
 	String dir = System.getProperty("user.dir");
 	String fileName;
 
@@ -52,33 +52,82 @@ public class GenPanel extends JPanel {
 		btnPick.addActionListener(new ButtonListener());
 		btnAddList = new JButton("Select File");
 		btnAddList.addActionListener(new ButtonListener());
+		
+		btnAddShirt = new JButton("Shirts");
+		btnAddShirt.addActionListener(new ButtonListener());
+		btnAddPants = new JButton("Pants");
+		btnAddPants.addActionListener(new ButtonListener());
+		btnAddSocks = new JButton("Socks");
+		btnAddSocks.addActionListener(new ButtonListener());
+		btnAddShoes = new JButton("Shoes");
+		btnAddShoes.addActionListener(new ButtonListener());
+		
+		btnDone = new JButton("Done");
+		btnDone.addActionListener(new ButtonListener());
 
 		add(btnAddList);
 		add(btnPick);
 		add(word1);
-		add(word2);
-		add(word3);
-		add(word4);
 		
+		add(btnAddShirt);
+		add(btnAddPants);
+		add(btnAddSocks);
+		add(btnAddShoes);
+		
+		add(btnDone);
+
 		word1.setVisible(false);
-		word2.setVisible(false);
-		word3.setVisible(false);
-		word4.setVisible(false);
+		btnDone.setVisible(false);
+		btnAddShirt.setVisible(false);
+		btnAddPants.setVisible(false);
+		btnAddSocks.setVisible(false);
+		btnAddShoes.setVisible(false);
 	}
 
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			if (event.getSource() == btnPick) {
-				createOutfit();
-				word1.setVisible(true);
-				word2.setVisible(true);
-				word3.setVisible(true);
-				word4.setVisible(true);
-			} else if (event.getSource() == btnAddList) {
+			if (event.getSource() == btnAddList) {
+				btnAddList.setVisible(false);
+				btnDone.setVisible(true);
 				btnPick.setVisible(false);
+				btnAddShirt.setVisible(true);
+				btnAddPants.setVisible(true);
+				btnAddSocks.setVisible(true);
+				btnAddShoes.setVisible(true);
 				
+			} else if (event.getSource() == btnAddShirt) {
+				File fn = getFile();
+				fileName = fn.getName();
+				Shirts = ReadFiles.returnArray(fileName, Shirts);
+			} else if (event.getSource() == btnAddPants) {
+				File fn = getFile();
+				fileName = fn.getName();
+				Pants = ReadFiles.returnArray(fileName, Pants);
+			} else if (event.getSource() == btnAddSocks) {
+				File fn = getFile();
+				fileName = fn.getName();
+				Socks = ReadFiles.returnArray(fileName, Socks);
+			} else if (event.getSource() == btnAddShoes) {
+				File fn = getFile();
+				fileName = fn.getName();
+				Shoes = ReadFiles.returnArray(fileName, Shoes);
+			} else if (event.getSource() == btnDone) {
+				btnAddShirt.setVisible(false);
+				btnAddPants.setVisible(false);
+				btnAddSocks.setVisible(false);
+				btnAddShoes.setVisible(false);
+				btnDone.setVisible(false);
+				btnAddList.setVisible(true);
+				btnPick.setVisible(true);
+				
+			} else if (event.getSource() == btnPick) {
+				Outfit.setTop(Shirts);
+				Outfit.setBottom(Pants);
+				Outfit.setAnkles(Socks);
+				Outfit.setFeet(Shoes);
+				word1.setText(Outfit.getOutfit());
+				word1.setVisible(true);
 			}
-
 		}
 	}
 
@@ -93,54 +142,7 @@ public class GenPanel extends JPanel {
 		}
 		return null;
 	}
-	
-	private void createOutfit() {
-		try {
-	
-				int num = Random.getNumber();
-				if (num == 1) {
-					fileName = dir + "\\Shirts.txt";
-					Shirts = ReadFiles.returnArray(fileName, Shirts);
-					item = Random.getItem(Shirts);
-					word1.setText(item);
 
-					fileName = dir + "\\Pants.txt";
-					Pants = ReadFiles.returnArray(fileName, Pants);
-					item = Random.getItem(Pants);
-					word2.setText(item);
 
-					fileName = dir + "\\Socks.txt";
-					Socks = ReadFiles.returnArray(fileName, Socks);
-					item = Random.getItem(Socks);
-					word3.setText(item);
-				} else {
-					fileName = dir + "\\Dresses.txt";
-					Dresses = ReadFiles.returnArray(fileName, Dresses);
-					item = Random.getItem(Dresses);
-					word1.setText(item);
-
-					fileName = dir + "\\Cardigans.txt";
-					Cardigans = ReadFiles.returnArray(fileName, Cardigans);
-					item = Random.getItem(Cardigans);
-					word2.setText(item);
-
-					fileName = dir + "\\Stockings.txt";
-					Stockings = ReadFiles.returnArray(fileName, Stockings);
-					item = Random.getItem(Stockings);
-					word3.setText(item);
-
-				}
-				fileName = dir + "\\Shoes.txt";
-				Shoes = ReadFiles.returnArray(fileName, Shoes);
-				item = Random.getItem(Shoes);
-				word4.setText(item);
-			
-
-		} catch (Exception e) {
-			System.out.println("A problem has occurred");
-			System.out.println(e.getMessage());
-		}
-
-	}
 }
  
