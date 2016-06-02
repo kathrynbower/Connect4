@@ -6,13 +6,11 @@ import java.io.File;
 
 public class ReadFiles {
 	
-	public static ArrayList<String> returnArray(String fileName, ArrayList<String> array) {
-
-		File inFile = new File(fileName);
+	public static ArrayList<String> returnArray(File fn, String fileName, ArrayList<String> array) {
 
 		Scanner in;
 		try {
-			in = new Scanner(inFile);
+			in = new Scanner(fn);
 
 			while (in.hasNext()) {
 				String word = in.nextLine();

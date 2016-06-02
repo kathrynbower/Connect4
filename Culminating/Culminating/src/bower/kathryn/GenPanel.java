@@ -17,7 +17,7 @@ public class GenPanel extends JPanel {
 	JButton btnPick;
 	JButton btnAddList;
 	JButton btnDone;
-	
+
 	JButton btnAddShirt;
 	JButton btnAddPants;
 	JButton btnAddSocks;
@@ -32,9 +32,9 @@ public class GenPanel extends JPanel {
 	ArrayList<String> Pants = new ArrayList<>();
 	ArrayList<String> Socks = new ArrayList<>();
 	ArrayList<String> Shoes = new ArrayList<>();
-	//ArrayList<String> Dresses = new ArrayList<>();
-	//ArrayList<String> Stockings = new ArrayList<>();
-	//ArrayList<String> Sweaters = new ArrayList<>();
+	// ArrayList<String> Dresses = new ArrayList<>();
+	// ArrayList<String> Stockings = new ArrayList<>();
+	// ArrayList<String> Sweaters = new ArrayList<>();
 
 	JTextField word1 = new JTextField(FONT_SIZE);
 	String dir = System.getProperty("user.dir");
@@ -52,7 +52,7 @@ public class GenPanel extends JPanel {
 		btnPick.addActionListener(new ButtonListener());
 		btnAddList = new JButton("Select File");
 		btnAddList.addActionListener(new ButtonListener());
-		
+
 		btnAddShirt = new JButton("Shirts");
 		btnAddShirt.addActionListener(new ButtonListener());
 		btnAddPants = new JButton("Pants");
@@ -61,19 +61,19 @@ public class GenPanel extends JPanel {
 		btnAddSocks.addActionListener(new ButtonListener());
 		btnAddShoes = new JButton("Shoes");
 		btnAddShoes.addActionListener(new ButtonListener());
-		
+
 		btnDone = new JButton("Done");
 		btnDone.addActionListener(new ButtonListener());
 
 		add(btnAddList);
 		add(btnPick);
 		add(word1);
-		
+
 		add(btnAddShirt);
 		add(btnAddPants);
 		add(btnAddSocks);
 		add(btnAddShoes);
-		
+
 		add(btnDone);
 
 		word1.setVisible(false);
@@ -94,23 +94,23 @@ public class GenPanel extends JPanel {
 				btnAddPants.setVisible(true);
 				btnAddSocks.setVisible(true);
 				btnAddShoes.setVisible(true);
-				
+
 			} else if (event.getSource() == btnAddShirt) {
 				File fn = getFile();
 				fileName = fn.getName();
-				Shirts = ReadFiles.returnArray(fileName, Shirts);
+				Shirts = ReadFiles.returnArray(fn,fileName, Shirts);
 			} else if (event.getSource() == btnAddPants) {
 				File fn = getFile();
 				fileName = fn.getName();
-				Pants = ReadFiles.returnArray(fileName, Pants);
+				Pants = ReadFiles.returnArray(fn,fileName, Pants);
 			} else if (event.getSource() == btnAddSocks) {
 				File fn = getFile();
 				fileName = fn.getName();
-				Socks = ReadFiles.returnArray(fileName, Socks);
+				Socks = ReadFiles.returnArray(fn,fileName, Socks);
 			} else if (event.getSource() == btnAddShoes) {
 				File fn = getFile();
 				fileName = fn.getName();
-				Shoes = ReadFiles.returnArray(fileName, Shoes);
+				Shoes = ReadFiles.returnArray(fn,fileName, Shoes);
 			} else if (event.getSource() == btnDone) {
 				btnAddShirt.setVisible(false);
 				btnAddPants.setVisible(false);
@@ -119,7 +119,7 @@ public class GenPanel extends JPanel {
 				btnDone.setVisible(false);
 				btnAddList.setVisible(true);
 				btnPick.setVisible(true);
-				
+
 			} else if (event.getSource() == btnPick) {
 				Outfit.setTop(Shirts);
 				Outfit.setBottom(Pants);
@@ -143,6 +143,4 @@ public class GenPanel extends JPanel {
 		return null;
 	}
 
-
 }
- 
