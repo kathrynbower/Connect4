@@ -6,7 +6,7 @@ import java.io.File;
 
 public class ReadFiles {
 	
-	public static ArrayList<String> returnArray(File fn, String fileName, ArrayList<String> array) {
+	public static ArrayList<String> returnArray(File fn, ArrayList<String> array) {
 
 		Scanner in;
 		try {

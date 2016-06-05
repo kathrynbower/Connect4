@@ -23,7 +23,7 @@ public class GenPanel extends JPanel {
 	JButton btnAddSocks;
 	JButton btnAddShoes;
 
-	int row = 10;
+	int row = 8;
 	int column = 1;
 
 	Color purple = new Color(200, 128, 224);
@@ -32,13 +32,12 @@ public class GenPanel extends JPanel {
 	ArrayList<String> Pants = new ArrayList<>();
 	ArrayList<String> Socks = new ArrayList<>();
 	ArrayList<String> Shoes = new ArrayList<>();
-	// ArrayList<String> Dresses = new ArrayList<>();
-	// ArrayList<String> Stockings = new ArrayList<>();
-	// ArrayList<String> Sweaters = new ArrayList<>();
+	
+	ArrayList<String> Rejects = new ArrayList<>();
 
 	JTextField word1 = new JTextField(FONT_SIZE);
-	String dir = System.getProperty("user.dir");
 	String fileName;
+	String outfit = "";
 
 	Scanner in = new Scanner(System.in);
 
@@ -76,6 +75,7 @@ public class GenPanel extends JPanel {
 
 		add(btnDone);
 
+		btnPick.setVisible(false);
 		word1.setVisible(false);
 		btnDone.setVisible(false);
 		btnAddShirt.setVisible(false);
@@ -97,36 +97,49 @@ public class GenPanel extends JPanel {
 
 			} else if (event.getSource() == btnAddShirt) {
 				File fn = getFile();
-				fileName = fn.getName();
-				Shirts = ReadFiles.returnArray(fn,fileName, Shirts);
+				Shirts = ReadFiles.returnArray(fn, Shirts);
 			} else if (event.getSource() == btnAddPants) {
 				File fn = getFile();
-				fileName = fn.getName();
-				Pants = ReadFiles.returnArray(fn,fileName, Pants);
+				Pants = ReadFiles.returnArray(fn, Pants);
 			} else if (event.getSource() == btnAddSocks) {
 				File fn = getFile();
-				fileName = fn.getName();
-				Socks = ReadFiles.returnArray(fn,fileName, Socks);
+				Socks = ReadFiles.returnArray(fn, Socks);
 			} else if (event.getSource() == btnAddShoes) {
 				File fn = getFile();
-				fileName = fn.getName();
-				Shoes = ReadFiles.returnArray(fn,fileName, Shoes);
-			} else if (event.getSource() == btnDone) {
-				btnAddShirt.setVisible(false);
-				btnAddPants.setVisible(false);
-				btnAddSocks.setVisible(false);
-				btnAddShoes.setVisible(false);
-				btnDone.setVisible(false);
-				btnAddList.setVisible(true);
-				btnPick.setVisible(true);
+				Shoes = ReadFiles.returnArray(fn, Shoes);
+				
+			} else if (event.getSource() == btnDone) { 
+				if (Shirts.isEmpty() || Pants.isEmpty() || Socks.isEmpty() || Shoes.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Minimum list(s) are not full.");
+				} else {
+					btnAddShirt.setVisible(false);
+					btnAddPants.setVisible(false);
+					btnAddSocks.setVisible(false);
+					btnAddShoes.setVisible(false);
+					btnDone.setVisible(false);
+					btnAddList.setVisible(true);
+					btnPick.setVisible(true);
+				}
 
 			} else if (event.getSource() == btnPick) {
 				Outfit.setTop(Shirts);
 				Outfit.setBottom(Pants);
 				Outfit.setAnkles(Socks);
 				Outfit.setFeet(Shoes);
-				word1.setText(Outfit.getOutfit());
+				outfit = Outfit.getOutfit();
+
+				while (checkList(Rejects, outfit)) {
+					Outfit.setTop(Shirts);
+					Outfit.setBottom(Pants);
+					Outfit.setAnkles(Socks);
+					Outfit.setFeet(Shoes);
+					outfit = Outfit.getOutfit();
+				}
+
+				word1.setText(outfit);
 				word1.setVisible(true);
+				getRating(Rejects, outfit);
+
 			}
 		}
 	}
@@ -141,6 +154,31 @@ public class GenPanel extends JPanel {
 			return inFile;
 		}
 		return null;
+	}
+
+	private boolean checkList(ArrayList<String> array, String outfit) {
+		boolean done = false;
+		for (String element : array) {
+			if (element.equals(outfit)) {
+				done = true;
+			}
+		}
+		return done;
+	}
+
+	private void getRating(ArrayList<String> array, String outfit) {
+		int num = 0;
+		while (num < 1 || num > 5) {
+			try {
+				String inputValue = JOptionPane.showInputDialog("How would you rate this outfit? (1 - 5)");
+				num = Integer.valueOf(inputValue);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Invalid input");
+			}
+		}
+		if (num < 3) {
+			array.add(outfit);
+		}
 	}
 
 }
