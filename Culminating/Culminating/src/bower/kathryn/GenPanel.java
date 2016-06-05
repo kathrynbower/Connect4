@@ -22,8 +22,10 @@ public class GenPanel extends JPanel {
 	JButton btnAddPants;
 	JButton btnAddSocks;
 	JButton btnAddShoes;
+	JButton btnAddDresses;
+	JButton btnAddStockings;
 
-	int row = 8;
+	int row = 10;
 	int column = 1;
 
 	Color purple = new Color(200, 128, 224);
@@ -32,7 +34,9 @@ public class GenPanel extends JPanel {
 	ArrayList<String> Pants = new ArrayList<>();
 	ArrayList<String> Socks = new ArrayList<>();
 	ArrayList<String> Shoes = new ArrayList<>();
-	
+	ArrayList<String> Dresses = new ArrayList<>();
+	ArrayList<String> Stockings = new ArrayList<>();
+
 	ArrayList<String> Rejects = new ArrayList<>();
 
 	JTextField word1 = new JTextField(FONT_SIZE);
@@ -60,6 +64,10 @@ public class GenPanel extends JPanel {
 		btnAddSocks.addActionListener(new ButtonListener());
 		btnAddShoes = new JButton("Shoes");
 		btnAddShoes.addActionListener(new ButtonListener());
+		btnAddDresses = new JButton("Dresses");
+		btnAddDresses.addActionListener(new ButtonListener());
+		btnAddStockings = new JButton("Stockings");
+		btnAddStockings.addActionListener(new ButtonListener());
 
 		btnDone = new JButton("Done");
 		btnDone.addActionListener(new ButtonListener());
@@ -72,6 +80,8 @@ public class GenPanel extends JPanel {
 		add(btnAddPants);
 		add(btnAddSocks);
 		add(btnAddShoes);
+		add(btnAddDresses);
+		add(btnAddStockings);
 
 		add(btnDone);
 
@@ -82,6 +92,8 @@ public class GenPanel extends JPanel {
 		btnAddPants.setVisible(false);
 		btnAddSocks.setVisible(false);
 		btnAddShoes.setVisible(false);
+		btnAddDresses.setVisible(false);
+		btnAddStockings.setVisible(false);
 	}
 
 	private class ButtonListener implements ActionListener {
@@ -94,6 +106,8 @@ public class GenPanel extends JPanel {
 				btnAddPants.setVisible(true);
 				btnAddSocks.setVisible(true);
 				btnAddShoes.setVisible(true);
+				btnAddDresses.setVisible(true);
+				btnAddStockings.setVisible(true);
 
 			} else if (event.getSource() == btnAddShirt) {
 				File fn = getFile();
@@ -107,8 +121,14 @@ public class GenPanel extends JPanel {
 			} else if (event.getSource() == btnAddShoes) {
 				File fn = getFile();
 				Shoes = ReadFiles.returnArray(fn, Shoes);
-				
-			} else if (event.getSource() == btnDone) { 
+			} else if (event.getSource() == btnAddDresses) {
+				File fn = getFile();
+				Dresses = ReadFiles.returnArray(fn, Dresses);
+			} else if (event.getSource() == btnAddStockings) {
+				File fn = getFile();
+				Stockings = ReadFiles.returnArray(fn, Stockings);
+
+			} else if (event.getSource() == btnDone) {
 				if (Shirts.isEmpty() || Pants.isEmpty() || Socks.isEmpty() || Shoes.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Minimum list(s) are not full.");
 				} else {
@@ -116,17 +136,35 @@ public class GenPanel extends JPanel {
 					btnAddPants.setVisible(false);
 					btnAddSocks.setVisible(false);
 					btnAddShoes.setVisible(false);
+					btnAddDresses.setVisible(false);
+					btnAddStockings.setVisible(false);
 					btnDone.setVisible(false);
 					btnAddList.setVisible(true);
 					btnPick.setVisible(true);
 				}
 
 			} else if (event.getSource() == btnPick) {
-				Outfit.setTop(Shirts);
-				Outfit.setBottom(Pants);
-				Outfit.setAnkles(Socks);
-				Outfit.setFeet(Shoes);
-				outfit = Outfit.getOutfit();
+				if (Dresses.isEmpty()) {
+					Outfit.setTop(Shirts);
+					Outfit.setBottom(Pants);
+					Outfit.setAnkles(Socks);
+					Outfit.setFeet(Shoes);
+					outfit = Outfit.getOutfit();
+				} else {
+					int num = Random.getNumber();
+					if (num == 1) {
+						Outfit.setTop(Dresses);
+						Outfit.setBottom(Stockings);
+						Outfit.setFeet(Shoes);
+						outfit = Outfit.getOutfit();
+					} else {
+						Outfit.setTop(Shirts);
+						Outfit.setBottom(Pants);
+						Outfit.setAnkles(Socks);
+						Outfit.setFeet(Shoes);
+						outfit = Outfit.getOutfit();
+					}
+				}
 
 				while (checkList(Rejects, outfit)) {
 					Outfit.setTop(Shirts);
