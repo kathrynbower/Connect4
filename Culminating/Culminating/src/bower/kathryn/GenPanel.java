@@ -20,7 +20,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class GenPanel extends JPanel {
 
-	final int FONT_SIZE = 24;
+	final int FONT_SIZE = 20;
 
 	JPanel pane1;
 	JPanel pane2;
