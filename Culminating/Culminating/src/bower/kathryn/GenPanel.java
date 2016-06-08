@@ -22,9 +22,6 @@ public class GenPanel extends JPanel {
 
 	final int FONT_SIZE = 20;
 
-	JPanel pane1;
-	JPanel pane2;
-
 	JButton btnPick;
 	JButton btnAddList;
 	JButton btnDone;
@@ -35,9 +32,6 @@ public class GenPanel extends JPanel {
 	JButton btnAddShoes;
 	JButton btnAddDresses;
 	JButton btnAddStockings;
-
-	int row = 10;
-	int column = 1;
 
 	Color purple = new Color(200, 128, 224);
 
@@ -54,7 +48,6 @@ public class GenPanel extends JPanel {
 	JTextField word1 = new JTextField(FONT_SIZE);
 	JLabel word2 = new JLabel("*Dresses and Stockings are not required");
 	Font btnFont = new Font("Serif", Font.PLAIN, FONT_SIZE);
-	String fileName;
 	String outfit = "";
 
 	Scanner in = new Scanner(System.in);
