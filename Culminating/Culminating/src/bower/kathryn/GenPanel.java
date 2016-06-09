@@ -191,9 +191,7 @@ public class GenPanel extends JPanel {
 
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			if (event.getSource() == btnAddList) { // makes buttons for
-													// different clothing types
-													// visible to the user
+			if (event.getSource() == btnAddList) { // makes buttons for different clothing types visible to the user
 				btnAddList.setVisible(false);
 				btnDone.setVisible(true);
 				btnPick.setVisible(false);
@@ -220,31 +218,19 @@ public class GenPanel extends JPanel {
 				File fn = getFile();
 				Shoes = ReadFiles.returnArray(fn, Shoes);
 				btnAddShoes.setEnabled(false);
-			} else if (event.getSource() == btnAddDresses) { // Fills dresses
-																// array
+			} else if (event.getSource() == btnAddDresses) { // Fills dresses array
 				File fn = getFile();
 				Dresses = ReadFiles.returnArray(fn, Dresses);
 				btnAddDresses.setEnabled(false);
-			} else if (event.getSource() == btnAddStockings) { // Fills
-																// stockings
-																// array
+			} else if (event.getSource() == btnAddStockings) { // Fills stockings array
 				File fn = getFile();
 				Stockings = ReadFiles.returnArray(fn, Stockings);
 				btnAddStockings.setEnabled(false);
 
 			} else if (event.getSource() == btnDone) {
-				if (Shirts.isEmpty() || Pants.isEmpty() || Socks.isEmpty() || Shoes.isEmpty()) { // Checks
-																									// if
-																									// that
-																									// the
-																									// minimum
-																									// lists
-																									// are
-																									// empty
+				if (Shirts.isEmpty() || Pants.isEmpty() || Socks.isEmpty() || Shoes.isEmpty()) { // Checks if minimum lists are empty
 					JOptionPane.showMessageDialog(null, "Minimum lists are not full.");
-				} else { // User cannot go back and pick an outfit until they
-							// are full - button not enabled/visible until lists
-							// are full
+				} else { // User cannot go back and pick an outfit until they are full - button not enabled/visible until lists are full
 					btnAddShirt.setVisible(false);
 					btnAddPants.setVisible(false);
 					btnAddSocks.setVisible(false);
@@ -259,26 +245,16 @@ public class GenPanel extends JPanel {
 				}
 
 			} else if (event.getSource() == btnPick) {
-				if (Dresses.isEmpty() || Stockings.isEmpty()) { // If there are
-																// no
-																// dresses/stockings
-																// only shirts,
-																// pants, socks
-																// and shoes
-																// will be
-																// randomly
-																// selected
+				if (Dresses.isEmpty() || Stockings.isEmpty()) { // If there are no dresses/stockings only shirts, pants, socks and shoes will be picked
 					Outfit.setTop(Shirts);
 					Outfit.setBottom(Pants);
 					Outfit.setAnkles(Socks);
 					Outfit.setFeet(Shoes);
 					outfit = Outfit.getOutfit();
 				} else {
-					int num = Random.getNumber(); // If there are dresses and
-													// stockings, a random
-													// number is chosen to
-													// choose between dress
-													// combo and pants combo
+					int num = Random.getNumber(); // If there are dresses and stockings, a random number is chosen to choose between 
+					                              //dress combo and pants combo
+
 					if (num == 1) {
 						Outfit.setTop(Dresses);
 						Outfit.setBottom(Stockings);
@@ -293,11 +269,7 @@ public class GenPanel extends JPanel {
 					}
 				}
 
-				while (checkList(Rejects, outfit)) { // Outfits will continue to
-														// be selected until one
-														// that is not in the do
-														// not show list is
-														// chosen
+				while (checkList(Rejects, outfit)) { // Outfits will continue to be selected until one that is not in the do not show list is chosen
 					Outfit.setTop(Shirts);
 					Outfit.setBottom(Pants);
 					Outfit.setAnkles(Socks);
